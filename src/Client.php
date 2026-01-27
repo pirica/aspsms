@@ -98,7 +98,6 @@ class Client
         if ($response === false) {
             $response = curl_error($this->curl);
         }
-        curl_close($this->curl);
         return $response;
     }
 }
