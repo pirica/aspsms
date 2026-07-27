@@ -37,6 +37,11 @@ class Endpoint
     private string $sender;
 
     /**
+     * @var string
+     */
+    private string $affiliateId = '';
+
+    /**
      * Endpoint constructor.
      */
     public function __construct()
@@ -54,6 +59,14 @@ class Endpoint
         $this->userKey = $userKey;
         $this->password = $password;
         $this->sender = $sender;
+    }
+
+    /**
+     * @param string $affiliateId
+     */
+    public function setAffiliateId(string $affiliateId): void
+    {
+        $this->affiliateId = $affiliateId;
     }
 
     /**
@@ -94,6 +107,9 @@ class Endpoint
             'MessageData' => $message,
             'Originator' => $this->sender,
         ];
+        if ($this->affiliateId !== '') {
+            $data['AffiliateId'] = $this->affiliateId;
+        }
         if ($notifyUrl !== '') {
             $data['URLDeliveryNotification'] = $notifyUrl;
         }
