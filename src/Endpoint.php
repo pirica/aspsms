@@ -3,6 +3,8 @@
 namespace jblond\aspsms;
 
 
+use JsonException;
+
 /**
  * Class Endpoint
  * Endpoints can be found at https://webapi.aspsms.com/index.html
@@ -87,6 +89,7 @@ class Endpoint
      * @param string $notDeliveredUrl URL that will be connected when a message is not delivered. The submitted TransactionReferenceNumber will be added to the URL.
      * @param callable|null $errorHandler Optional callback invoked with the raw response when the request was not successful.
      * @return bool|string
+     * @throws JsonException
      */
     public function sendSMS(
         string $message,
@@ -127,6 +130,7 @@ class Endpoint
 
     /**
      * @return mixed
+     * @throws JsonException
      */
     public function getTrafficStat(): mixed
     {
@@ -141,6 +145,7 @@ class Endpoint
      * @param int $month
      * @param int $day
      * @return mixed
+     * @throws JsonException
      */
     public function getSendingStat(int $year = 0, int $month = 0, int $day = 0): mixed
     {
@@ -162,6 +167,7 @@ class Endpoint
 
     /**
      * @return mixed
+     * @throws JsonException
      */
     public function getStats(): mixed
     {
@@ -173,6 +179,7 @@ class Endpoint
 
     /**
      * @return mixed
+     * @throws JsonException
      */
     public function getPhoneNumbers(): mixed
     {

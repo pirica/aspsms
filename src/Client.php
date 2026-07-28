@@ -3,6 +3,7 @@
 namespace jblond\aspsms;
 
 use CurlHandle;
+use JsonException;
 
 class Client
 {
@@ -39,6 +40,7 @@ class Client
      * Evaluate if the response was successful
      * @param string $data
      * @return bool
+     * @throws JsonException
      */
     protected function analyseResponse(string $data): bool
     {
@@ -48,6 +50,7 @@ class Client
 
     /**
      * @param array $input
+     * @throws JsonException
      */
     protected function setData(array $input): void
     {
@@ -75,6 +78,7 @@ class Client
      * @param callable|null $errorHandler Optional callback invoked with the raw response
      *                                    when the request was not successful.
      * @return bool
+     * @throws JsonException
      */
     public function post(string $url, array $data, ?callable $errorHandler = null): bool
     {

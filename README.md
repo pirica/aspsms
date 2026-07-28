@@ -72,6 +72,8 @@ $timestamp = date("c", strtotime("+30 seconds"))
 
 see [php dateformat](https://www.php.net/manual/de/datetime.format.php)
 
+The sendSMS function has an optional fours parameter, where you can set your own callable error handler.
+
 ### config
 
 .env
