@@ -6,7 +6,7 @@ namespace jblond\aspsms;
 /**
  * Class Endpoint
  * Endpoints can be found at https://webapi.aspsms.com/index.html
- * There are more endpoint to the API, but I did not require them.
+ * There are more endpoints to the API, but I did not require them.
  * @package jblond\aspsms
  */
 class Endpoint
@@ -133,7 +133,7 @@ class Endpoint
         return json_decode($this->client->get(
             $this->baseurl .
             '/TrafficStat01/Get?UserKey=' . $this->userKey . '&Password=' . $this->password . '&CalculateCredits=true'
-        ), true);
+        ), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -157,7 +157,7 @@ class Endpoint
         return json_decode($this->client->get(
             $this->baseurl .
             '/SendingStat01/Get?UserKey=' . $this->userKey . '&Password=' . $this->password . $url
-        ), true);
+        ), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -168,7 +168,7 @@ class Endpoint
         return json_decode($this->client->get(
             $this->baseurl .
             '/MSISDNDLRStat/Get?UserKey=' . $this->userKey . '&Password=' . $this->password
-        ), true);
+        ), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -178,6 +178,6 @@ class Endpoint
     {
         return json_decode($this->client->get(
             $this->baseurl . '/PhoneNumbers/Read?UserKey=' . $this->userKey . '&Password=' . $this->password
-        ), true);
+        ), true, 512, JSON_THROW_ON_ERROR);
     }
 }

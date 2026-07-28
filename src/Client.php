@@ -42,7 +42,7 @@ class Client
      */
     protected function analyseResponse(string $data): bool
     {
-        $response = json_decode($data, true);
+        $response = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
         return $response['errorCode'] === 1;
     }
 
@@ -51,7 +51,7 @@ class Client
      */
     protected function setData(array $input): void
     {
-        $this->data = json_encode($input, JSON_PRETTY_PRINT);
+        $this->data = json_encode($input, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
     }
 
     /**
