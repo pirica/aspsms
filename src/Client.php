@@ -72,9 +72,11 @@ class Client
     /**
      * @param string $url
      * @param array $data
+     * @param callable|null $errorHandler Optional callback invoked with the raw response
+     *                                    when the request was not successful.
      * @return bool
      */
-    public function post(string $url, array $data): bool
+    public function post(string $url, array $data, ?callable $errorHandler = null): bool
     {
         $this->setData($data);
         curl_setopt_array(
@@ -86,7 +88,12 @@ class Client
                 CURLOPT_HTTPHEADER => ['Content-type: application/json']
             ]
         );
-        return $this->analyseResponse($this->sendRequest());
+        $response = $this->sendRequest();
+        $success = $this->analyseResponse($response);
+        if (!$success && $errorHandler !== null) {
+            $errorHandler($response);
+        }
+        return $success;
     }
 
     /**
