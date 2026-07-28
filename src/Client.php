@@ -40,12 +40,16 @@ class Client
      * Evaluate if the response was successful
      * @param string $data
      * @return bool
-     * @throws JsonException
      */
     protected function analyseResponse(string $data): bool
     {
-        $response = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
-        return $response['errorCode'] === 1;
+        try {
+            $response = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            return false; // transport error or invalid JSON
+        }
+        $code = $response['ErrorCode'] ?? ($response['errorCode'] ?? null);
+        return (int)$code === 1;
     }
 
     /**
