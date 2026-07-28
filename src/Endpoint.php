@@ -85,6 +85,7 @@ class Endpoint
      * @param string $when Y-m-dTH:i:sP or date("c", timestamp)
      * @param string $notifyUrl URL that will be called when a message is delivered instantly. The submitted TransactionReferenceNumber will be added to the URL.
      * @param string $notDeliveredUrl URL that will be connected when a message is not delivered. The submitted TransactionReferenceNumber will be added to the URL.
+     * @param callable|null $errorHandler Optional callback invoked with the raw response when the request was not successful.
      * @return bool|string
      */
     public function sendSMS(
@@ -92,7 +93,8 @@ class Endpoint
         array $recipients,
         string $when,
         string $notifyUrl = '',
-        string $notDeliveredUrl = ''
+        string $notDeliveredUrl = '',
+        ?callable $errorHandler = null
     ): bool|string
     {
 
@@ -118,7 +120,8 @@ class Endpoint
         }
         return $this->client->post(
             $this->baseurl . '/ASPSMSSendSMS?UserKey=' . $this->userKey . '&Password=' . $this->password,
-            $data
+            $data,
+            $errorHandler
         );
     }
 
